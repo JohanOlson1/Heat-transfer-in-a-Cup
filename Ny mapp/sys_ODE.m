@@ -3,6 +3,10 @@ function [dF] = sys_ODE(t, y, T_r_inner, T_top, D_in, H)
     r_in = D_in/2; A_inner = 2 * r_in * pi * H; A_top = pi * (D_in/2)^2; 
     
     %T_film_top_out = ((T_A + T_top)/2);
+    
+    % Two Choices of expressions for the concentration of water at the
+    % surface
+    
     % rho_water = 0.00377 * exp(17.27 * (T_top -273.15)/(T_top - 16.01))
     % rho_water = 0.018/(T_top * 8.3145) * p_water(T_top)
     

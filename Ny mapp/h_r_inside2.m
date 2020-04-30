@@ -2,6 +2,7 @@ function F = h_r_inside2(T_r_inner, T_A, H)
     % This function calculates the heat transfer coefficient at the outside
     % wall, the inputs required are the outer wall temperature and the charachteristic length H, which is
     % the height of the wall (against the water!)
+    
     T_film = (T_r_inner + T_A)/2; 
     g = 9.82; 
 
