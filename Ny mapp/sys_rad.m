@@ -3,10 +3,17 @@ function F = sys_rad(T, T_A, D_out, D_in, H)
     T_r_outer = T(2);
     
     k = 0.9; d = (D_out - D_in)/2; r_o = D_out/2; r_in = D_in/2; A_inner = 2 * r_in * pi * H; A_outer = 2 * r_o * pi * H;
-    T_O = 293.15; eps = 0.945; boltz = 1.38064852 * 1e-23;
+    T_O = 293.15; eps = 0.945; boltz = 5.67e-8;
     
-    F(1) = 2 * pi * k * d * (T_r_inner - T_r_outer) / (log(r_o/r_in)) - h_r_inside2(T_r_inner, T_A, H) * A_inner * (T_A - T_r_inner);
-    F(2) = h_r_outside2(T_r_outer, H) * A_outer * (T_r_outer - T_O) + eps * boltz * A_outer * ((T_r_outer)^4 - T_O^4) - h_r_inside2(T_r_inner, T_A, H) * A_inner * (T_A - T_r_inner);
-    F(3) = 2 * pi * k * d * (T_r_inner - T_r_outer) / (log(r_o/r_in)) - h_r_outside2(T_r_outer, H) * A_outer * (T_r_outer - T_O) + eps * boltz * A_outer * ((T_r_outer)^4 - T_O^4);
+    % Heat Flows
+    q_conduction = - 2 * pi * k * d * (T_r_inner - T_r_outer) / (log(r_o/r_in));
+    q_convection_in = - h_r_inside2(T_r_inner, T_A, H) * A_inner * (T_A - T_r_inner);
+    q_convection_out = - h_r_outside2(T_r_outer, H) * A_outer * (T_r_outer - T_O);
+    q_radiation = - eps * boltz * A_outer * ((T_r_outer)^4 - T_O^4);
+ 
+    
+    F(1) = q_conduction - q_convection_in;
+    F(2) = q_convection_out + q_radiation - q_convection_in;
+    F(3) = q_conduction - q_convection_out + q_radiation;
 end
     

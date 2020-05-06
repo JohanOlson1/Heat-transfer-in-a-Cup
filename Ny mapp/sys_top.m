@@ -1,6 +1,6 @@
 function F = sys_top(T_top, T_A, D_in, dmA)
     
-    A_top = pi * (D_in/2)^2; eps = 0.945; boltz = 1.38064852 * 1e-23; T_O = 293.15;
+    A_top = pi * (D_in/2)^2; eps = 0.945; boltz =  5.67e-8; T_O = 293.15;
     
     % Heat Flows
     q_radiation = - eps * boltz * A_top * (T_top^4 - T_O^4);
