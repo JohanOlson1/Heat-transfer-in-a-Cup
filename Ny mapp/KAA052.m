@@ -9,7 +9,7 @@ m_A0 = 0.1795                           % Inital Mass of water (kg)
 D_out = 0.07;                           % Inner Diameter   (m)
 D_in =  0.067;                          % Outer Diameter   (m)
 H_raw = 0.095;                          % Height of Beaker (m)
-H = (m_A0 / Beaker_vol) * 0.095;        % Height of water  (m)
+H = (m_A0 / Beaker_vol) * H;            % Height of water  (m)
 % -------------------------------------------------------------------------
 
 
