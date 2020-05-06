@@ -1,6 +1,4 @@
-function F = h_top_inside(T_top, T_A)
-    
-    D_in = 0.067;
+function F = h_top_inside(T_top, T_A, D_in)
     
     T_film = (T_top + T_A)/2;
     g = 9.82; 

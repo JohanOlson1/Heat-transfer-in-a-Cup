@@ -15,7 +15,7 @@ function [dF] = sys_ODE(t, y, T_r_inner, T_top, D_in, H)
     
     % Heat Flux  
     q_convection_rad = (- h_r_inside2(T_r_inner, T_A, H) * A_inner * (T_A - T_r_inner));
-    q_convection_top = h_top_inside(T_top, T_A) * A_top * (T_A - T_top);
+    q_convection_top = h_top_inside(T_top, T_A, D_in) * A_top * (T_A - T_top);
     
     % Mass Flux
     delta_conc = (rho_water_2 - 0.017274);
