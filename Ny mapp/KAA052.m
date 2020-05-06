@@ -4,7 +4,7 @@ clear
 % --------------------------Inputs-----------------------------------------
 T = readtable('small_exp5.txt');        % Import the Data
 
-Beaker_vol = 0.250                      % Volume of the Beaker (liter)
+Beaker_vol = 0.250;                      % Volume of the Beaker (liter)
 m_A0 = 0.1795                           % Inital Mass of water (kg)
 D_out = 0.07;                           % Inner Diameter   (m)
 D_in =  0.067;                          % Outer Diameter   (m)
