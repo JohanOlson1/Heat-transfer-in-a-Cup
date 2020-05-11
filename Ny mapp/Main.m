@@ -2,7 +2,7 @@
 clear
 clf
 % --------------------------Inputs-----------------------------------------
-T = readtable('small_exp4.txt');        % Import the Data
+T = readtable('small_exp4.txt');        % Import the Data for real
 
 Beaker_vol = 0.250;                     % Volume of the Beaker (liter)
 m_A0 = 0.19059;                         % Inital Mass of water (kg)
