@@ -1,8 +1,12 @@
 %% Project in KAA052
 clear
 clf
+
+q_convection_rad_in1 = 1; q_conduction2 = 1; q_convection_rad_out3 = 1; q_rad_radiation4 = 1; 
+q_top_radiation5 = 1; q_convection_top_out6 = 1; q_vap7 = 1; q_convection_top_in8 = 1;
+
 % --------------------------Inputs-----------------------------------------
-T = readtable('small_exp4.txt');        % Import the Data for real
+T = readtable('small_exp4.txt');        % Import the Data
 
 Beaker_vol = 0.250;                     % Volume of the Beaker (liter)
 m_A0 = 0.19059;                         % Inital Mass of water (kg)
@@ -21,10 +25,18 @@ y0 = [353.15 m_A0];                      % Inital Temperature and mass at t=0
 
 % --------------------------Solver-----------------------------------------     
  odefunc = @(t, y)sys_ODE_full(t, y, D_in, D_out, H);                    % System of ODE   
- t_span = linspace(0,1800,3*1801);                                       % Timespan                                                        
+ t_span = linspace(0,1800,1800);                                         % Timespan                                                        
      
- [t, y] = ode45(odefunc, t_span, y0);                                    % Solution for temp. and mass                                                                 
-     
+ [t, y] = ode45(odefunc, t_span, y0);                                    % Solution for temp. and mass 
+ 
+ q_convection_rad_in1=q_convection_rad_in1(2:end);
+ q_conduction2=q_conduction2(2:end);
+ q_convection_rad_out3=q_convection_rad_out3(2:end);
+ q_rad_radiation4=q_rad_radiation4(2:end);
+ q_top_radiation5=q_top_radiation5(2:end);
+ q_convection_top_out6=q_convection_top_out6(2:end);
+ q_vap7=q_vap7(2:end);
+ q_convection_top_in8=q_convection_top_in8(2:end);
 % -------------------------------------------------------------------------
 
 % --------------------------Plotting---------------------------------------
@@ -46,16 +58,7 @@ y0 = [353.15 m_A0];                      % Inital Temperature and mass at t=0
  xlabel('Time (s)')
  
 
- 
- 
-% MK_T = 0; MK_m = 0;
-% 
-% for i=90:90:5400
-%     MK_T = MK_T + (y(i,1)-T.T__C_(i/90+1))^2;
-%     MK_m = MK_m + (y(i,2)-T.m__g_(i/90+1))^2;
-% end
-%  
-% MK_tot = MK_T + MK_m
+
 % -------------------------------------------------------------------------
 
 
@@ -80,3 +83,49 @@ residual_T = vq_T - T.T__C_;
 
 Rsq_T = 1 - sum((residual_T).^2)/sum((T.T__C_ - mean(T.T__C_)).^2);
 Rsq_m = 1 - sum((residual_m).^2)/sum((T.m__g_ - mean(T.m__g_)).^2);
+
+%-------------------------------------
+
+q_tot = q_convection_rad_in1 + q_convection_top_in8;
+
+
+p_q_convection_rad_in = q_convection_rad_in1./q_tot;
+
+p_q_conduction = q_conduction2./q_tot;
+
+p_q_convection_rad_out = q_convection_rad_out3./q_tot;
+
+p_q_rad_radiation = q_rad_radiation4./q_tot;
+
+p_q_top_radiation = q_top_radiation5./q_tot;
+
+p_q_convection_top_out = q_convection_top_out6./q_tot;
+
+p_q_vap = q_vap7./q_tot;
+
+p_q_convection_top_in = q_convection_top_in8./q_tot;
+
+%--------------------
+
+p_q_vap + p_q_convection_top_out + p_q_top_radiation + p_q_rad_radiation + p_q_convection_rad_out
+
+%-----------
+
+%convection heat loss
+
+p_conv = p_q_convection_top_out + p_q_convection_rad_out;
+p_rad = p_q_top_radiation + p_q_rad_radiation;
+
+
+t_fusk = linspace(0,1800,85);
+
+figure(6)
+plot(t_fusk, p_conv)
+hold on
+plot(t_fusk, p_rad)
+hold on
+plot(t_fusk, p_q_conduction)
+hold on
+plot(t_fusk, p_q_vap)
+
+

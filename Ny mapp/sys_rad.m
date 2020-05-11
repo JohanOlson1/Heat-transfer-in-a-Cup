@@ -6,14 +6,17 @@ function F = sys_rad(T, T_A, D_out, D_in, H)
     T_O = 293.15; eps = 0.94; boltz = 5.67e-8;
     
     % Heat Flows
+    q_convection_rad_in = - h_r_inside2(T_r_inner, T_A, H) * A_inner * (T_A - T_r_inner);
     q_conduction = - 2 * pi * k * d * (T_r_inner - T_r_outer) / (log(r_o/r_in));
-    q_convection_in = - h_r_inside2(T_r_inner, T_A, H) * A_inner * (T_A - T_r_inner);
-    q_convection_out = - h_r_outside2(T_r_outer, H) * A_outer * (T_r_outer - T_O);
-    q_radiation = - eps * boltz * A_outer * ((T_r_outer)^4 - T_O^4);
+    q_convection_rad_out = - h_r_outside2(T_r_outer, H) * A_outer * (T_r_outer - T_O);
+    q_rad_radiation = - eps * boltz * A_outer * ((T_r_outer)^4 - T_O^4);
  
     
-    F(1) = q_conduction - q_convection_in;
-    F(2) = q_convection_out + q_radiation - q_convection_in;
-    F(3) = q_conduction - q_convection_out + q_radiation;
+    F(1) = q_conduction - q_convection_rad_in;
+    F(2) = q_convection_rad_out + q_rad_radiation - q_convection_rad_in;
+    %F(3) = q_conduction - q_convection_rad_out + q_rad_radiation;
+    
+    
+    
 end
     

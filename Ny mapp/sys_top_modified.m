@@ -11,11 +11,11 @@ function F = sys_top_modified(T_top, T_A, D_in)
     kc = h_top_outside(T_top, D_in) * (2.9e-6) * ((T_A + T_top)/2) / (rho_air((T_A + T_top)/2)^(1/3) * cp_air((T_A + T_top)/2)^(1/3) * k_air((T_A + T_top)/2)^(2/3));
     
     % Heat Flows
-    q_radiation = - eps * boltz * A_top * (T_top^4 - T_O^4);
-    q_convection_out = - h_top_outside(T_top, D_in) * A_top * (T_top - T_O);
+    q_top_radiation = - eps * boltz * A_top * (T_top^4 - T_O^4);
+    q_convection_top_out = - h_top_outside(T_top, D_in) * A_top * (T_top - T_O);
     q_vap = - dHvap_water(T_top) * delta_conc * A_top * kc;
-    q_convection_in = - h_top_inside(T_top, T_A, D_in) * A_top * (T_A - T_top);
+    q_convection_top_in = - h_top_inside(T_top, T_A, D_in) * A_top * (T_A - T_top);
     
-    F = q_convection_out + q_radiation + q_vap - q_convection_in;
+    F = q_convection_top_out + q_top_radiation + q_vap - q_convection_top_in;
     
 end
