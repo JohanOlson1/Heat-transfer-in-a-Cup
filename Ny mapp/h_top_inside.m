@@ -6,8 +6,4 @@ function F = h_top_inside(T_top, T_A, D_in)
     
     F = (k_water(T_film) / (D_in/4)) * 0.14 * Ra_L^(1/3);
     
-    
-    
-    %F = (0.3 * pr_water(T_film)^(1/3) * k_water(T_film) * 1/(T_A^(1/3)) * (T_A - T_top)^(1/3)) / ((my_water(T_film)/rho_water(T_film))^(2/3));
-    
 end

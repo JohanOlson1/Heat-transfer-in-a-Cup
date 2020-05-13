@@ -14,7 +14,6 @@ function F = sys_rad(T, T_A, D_out, D_in, H)
     
     F(1) = q_conduction - q_convection_rad_in;
     F(2) = q_convection_rad_out + q_rad_radiation - q_convection_rad_in;
-    %F(3) = q_conduction - q_convection_rad_out + q_rad_radiation;
     
     
     

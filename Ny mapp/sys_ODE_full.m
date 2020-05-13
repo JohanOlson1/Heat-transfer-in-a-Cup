@@ -50,6 +50,25 @@ function [y] = sys_ODE_full(t, y, D_in, D_out, H)
     y(1) = (q_convection_rad_in + q_convection_top_in)/(m_A * cp_water(T_A));
     y(2) = - delta_conc * A_top * kc;
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     %------------------------------------------------------
     
     q_convection_rad_in1 = q_convection_rad_in;

@@ -12,8 +12,4 @@ function F = h_top_outside(T_top, D_in)
     
     F = 0.54 * k_air(T_film)/(D_in/4) * Ra_L^(1/4);
     
-
-    
-    %F = (0.216 * k_air(T_film) * (T_top - T_O)^(0.25))/((D_in/4)^(0.25) * (my_air(T_film)/rho_air(T_film))^0.5);
-    
 end

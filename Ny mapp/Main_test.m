@@ -6,10 +6,27 @@ q_convection_rad_in1 = 1; q_conduction2 = 1; q_convection_rad_out3 = 1; q_rad_ra
 q_top_radiation5 = 1; q_convection_top_out6 = 1; q_vap7 = 1; q_convection_top_in8 = 1;
 
 % --------------------------Inputs-----------------------------------------
-T = readtable('small_exp4.txt');        % Import the Data
+T1 = readtable('small_exp1.txt');        % Import the Data
+T2 = readtable('small_exp2.txt');
+T3 = readtable('small_exp3.txt');
+T4 = readtable('small_exp4.txt');
+T5 = readtable('small_exp5.txt');
 
-Beaker_vol = 0.250;                     % Volume of the Beaker (liter)
-m_A0 = 0.19059;                         % Inital Mass of water (kg)
+T2_int = interp1(T2.t__s_,T2.T__C_,T1.t__s_);
+T3_int = interp1(T3.t__s_,T3.T__C_,T1.t__s_);
+
+m2_int = interp1(T2.t__s_,T2.m__g_,T1.t__s_);
+m3_int = interp1(T2.t__s_,T3.m__g_,T1.t__s_);
+
+T = (T1.T__C_ + T2_int + T3_int + T4.T__C_ + T5.T__C_)/5;
+
+m = (T1.m__g_ + m2_int + m3_int + T4.m__g_ + T5.m__g_)/5;
+
+
+
+m_A0 = m(1)/1000;
+
+Beaker_vol = 0.250;                     % Volume of the Beaker (liter)                         % Inital Mass of water (kg)
 D_out = 0.07;                           % Inner Diameter   (m)
 D_in =  0.067;                          % Outer Diameter   (m)
 H_raw = 0.095;                          % Height of Beaker (m)
@@ -46,45 +63,60 @@ y0 = [353.15 m_A0];                      % Inital Temperature and mass at t=0
  y(:,2) = y(:,2).*1000;       % Transfrom Mass from kg to g
  
  figure(1)                    % Temperature
+ subplot(2,1,1)
  plot(t, y(:, 1))
  hold on
- plot(T.t__s_, T.T__C_, 'x')
+ plot(T1.t__s_, T, 'x')
  ylabel('Temperature (C)')
  xlabel('Time (s)')
+ title('Temperature')
  
- figure(2)                    % Mass
+ subplot(2,1,2)
  plot(t, y(:, 2))
  hold on
- plot(T.t__s_, T.m__g_, 'x')
+ plot(T1.t__s_, m, 'x')
  ylabel('Mass (g)')
  xlabel('Time (s)')
+ title('Mass')
  % ------------------------------------------------------------------------
 
 
  % -------------------------Residual Plot----------------------------------
-vq_T = interp1(t_span,y(:,1),T.t__s_);
-figure(3)
+vq_T = interp1(t_span,y(:,1),T1.t__s_);
+figure(2)
  subplot(1,2,1);
- plot(vq_T,T.T__C_, 'o')
+ plot(vq_T, T, 'o')
  hold on
- plot(T.T__C_,T.T__C_)
+ plot(T, T)
+ xlabel('Predicted Value')
+ ylabel('Actual')
 
-vq_m = interp1(t_span,y(:,2),T.t__s_);
+vq_m = interp1(t_span,y(:,2),T1.t__s_);
  subplot(1,2,2);
- plot(vq_m,T.m__g_, 'o')
+ plot(vq_m, m, 'o')
  hold on
- plot(T.m__g_,T.m__g_)
+ plot(m, m)
+  xlabel('Predicted Value')
+ ylabel('Actual')
+ 
+ sgtitle('Actual vs Predicted')
 
-residual_m = vq_m - T.m__g_;
-figure(5)
-plot(T.t__s_, residual_m, 'o')
 
-residual_T = vq_T - T.T__C_;
+residual_m = vq_m - m;
+residual_T = vq_T - T;
 
-Rsq_T = 1 - sum((residual_T).^2)/sum((T.T__C_ - mean(T.T__C_)).^2)
-Rsq_m = 1 - sum((residual_m).^2)/sum((T.m__g_ - mean(T.m__g_)).^2)
+figure(3)
+subplot(2,1,1);
+plot(vq_m, residual_m, 'o')
+subplot(2,1,2);
+plot(vq_T, residual_T, 'o')
+sgtitle('Residuals')
+
+
+
+Rsq_T = 1 - sum((residual_T).^2)/sum((T - mean(T)).^2)
+Rsq_m = 1 - sum((residual_m).^2)/sum((m - mean(m)).^2)
 % -------------------------------------------------------------------------
-
 
 %------------------- Heat Flows -------------------------------------------
 
@@ -121,28 +153,31 @@ p_rad = p_q_top_radiation + p_q_rad_radiation;
 
 t_fusk = linspace(0,1800,85);
 
-figure(6)
-plot(t_fusk, p_conv)
-hold on
-plot(t_fusk, p_rad)
-hold on
-plot(t_fusk, p_q_vap)
-
-figure(7)
-plot(t_fusk, q_convection_rad_in1)
-hold on
-plot(t_fusk, q_conduction2)
-hold on
-plot(t_fusk, q_convection_rad_out3)
-hold on
-plot(t_fusk, q_rad_radiation4)
-hold on
-plot(t_fusk, q_top_radiation5)
-hold on
-plot(t_fusk, q_convection_top_out6)
-hold on
-plot(t_fusk, q_vap7)
-hold on
-plot(t_fusk, q_convection_top_in8)
+T_fusk = interp1(t_span, y(:,1), t_fusk);
 
 
+figure(4)
+plot(T_fusk, p_conv)
+hold on
+plot(T_fusk, p_rad)
+hold on
+plot(T_fusk, p_q_vap)
+legend({'Convection', 'Radiation', 'Evaporation'},'Location','NorthWest')
+title('Percentage of different heat Loss Mechanisms')
+
+% figure(7)
+% plot(t_fusk, q_convection_rad_in1)
+% hold on
+% plot(t_fusk, q_conduction2)
+% hold on
+% plot(t_fusk, q_convection_rad_out3)
+% hold on
+% plot(t_fusk, q_rad_radiation4)
+% hold on
+% plot(t_fusk, q_top_radiation5)
+% hold on
+% plot(t_fusk, q_convection_top_out6)
+% hold on
+% plot(t_fusk, q_vap7)
+% hold on
+% plot(t_fusk, q_convection_top_in8)
