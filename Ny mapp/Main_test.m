@@ -248,6 +248,7 @@ figure(4)
 subplot(2,1,1);
 plot(vq_T1, residual_T1, 'ro', vq_T2, residual_T2, 'bo', vq_T3, residual_T3, 'go', vq_T4, residual_T4, 'mo', vq_T5, residual_T5, 'co')
 hold on
+plot(vq_T1, residual_T1, 'r', vq_T2, residual_T2, 'b', vq_T3, residual_T3, 'g', vq_T4, residual_T4, 'm', vq_T5, residual_T5, 'c')
 plot([0 1], [0 0], 'black', 'linewidth', 2)
 ylabel('Normalized Residuals')
 title('Temperature')
@@ -255,6 +256,7 @@ title('Temperature')
 subplot(2,1,2);
 plot(vq_m1, residual_m1, 'ro', vq_m2, residual_m2, 'bo', vq_m3, residual_m3, 'go', vq_m4, residual_m4, 'mo', vq_m5, residual_m5, 'co')
 hold on
+plot(vq_m1, residual_m1, 'r', vq_m2, residual_m2, 'b', vq_m3, residual_m3, 'g', vq_m4, residual_m4, 'm', vq_m5, residual_m5, 'c')
 plot([0 1], [0 0], 'black', 'linewidth', 2)
 ylabel('Normalized Residuals')
 title('Mass')
@@ -294,19 +296,21 @@ p_conv = p_q_convection_top_out + p_q_convection_rad_out;
 p_rad = p_q_top_radiation + p_q_rad_radiation;
 
 t_fusk = linspace(0,1800,85);
-t_fusk = linspace(0,1800,425);
+%t_fusk = linspace(0,1800,425);
 
 T_fusk = interp1(t_span, y1(:,1), t_fusk);
 
 
 figure(5)
-plot(T_fusk, p_conv)
+plot(T_fusk, p_conv(1:85))
 hold on
-plot(T_fusk, p_rad)
+plot(T_fusk, p_rad(1:85))
 hold on
-plot(T_fusk, p_q_vap)
+plot(T_fusk, p_q_vap(1:85))
 legend({'Convection', 'Radiation', 'Evaporation'},'Location','NorthWest')
 title('Percentage of different heat Loss Mechanisms')
+xlabel('Temperature ($^{\circ} C$)', 'Interpreter', 'latex')
+
 
 % figure(7)
 % plot(t_fusk, q_convection_rad_in1)
