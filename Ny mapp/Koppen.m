@@ -50,15 +50,16 @@ y(:,2) = y(:,2).*1000;
  figure(1)                  
  plot(t, y(:,1), 'r')
  hold on
+ plot([0 3600], [50 50])
  ylabel('Temperature ($^{\circ} C$)', 'Interpreter', 'latex')
  xlabel('Time (s)', 'Interpreter', 'latex')
- title('Temperature', 'Interpreter', 'latex')
+ title('The Designed Cups Temperature', 'Interpreter', 'latex')
 
  
  
- figure(2)
- plot(t, y(:,2), 'r')
- hold on
- ylabel('Mass (g)', 'Interpreter', 'latex')
- xlabel('Time (s)', 'Interpreter', 'latex')
- title('Mass', 'Interpreter', 'latex')
+%  figure(2)
+%  plot(t, y(:,2), 'r')
+%  hold on
+%  ylabel('Mass (g)', 'Interpreter', 'latex')
+%  xlabel('Time (s)', 'Interpreter', 'latex')
+%  title('Mass', 'Interpreter', 'latex')

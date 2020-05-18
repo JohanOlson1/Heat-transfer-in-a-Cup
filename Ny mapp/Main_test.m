@@ -283,7 +283,7 @@ p_q_convection_top_in = q_convection_top_in8./q_tot;
 % ---------------------------Heat flows top--------------------------------
 TOP_p_q_top_radiation = q_top_radiation5./q_convection_top_in8;
 TOP_p_q_vap = q_vap7./q_convection_top_in8;
-TOP_p_q_convection_top_out = q_convection_top_out6./q_convection_top_in8
+TOP_p_q_convection_top_out = q_convection_top_out6./q_convection_top_in8;
 
 % -------------------------------------------------------------------------
 RADq_convection_rad_out = q_convection_rad_out3./q_convection_rad_in1;
