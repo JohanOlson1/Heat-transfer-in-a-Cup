@@ -17,9 +17,9 @@ D_out = 0.07;                           % Inner Diameter   (m)
 D_in =  0.067;                          % Outer Diameter   (m)
 H_raw = 0.095;                          % Height of Beaker (m)
 
-m_A01 = T1.m__g_(1)/1000;
-m_A02 = T2.m__g_(1)/1000;
-m_A03 = T3.m__g_(1)/1000;
+m_A01 = T1.m__g_(1)/972;
+m_A02 = T2.m__g_(1)/972;
+m_A03 = T3.m__g_(1)/972;
 m_A04 = T4.m__g_(1)/1000;
 m_A05 = T5.m__g_(1)/1000;
 

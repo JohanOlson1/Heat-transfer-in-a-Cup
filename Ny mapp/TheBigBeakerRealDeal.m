@@ -183,7 +183,7 @@ figure(3)
  ylabel('Actual Normalized Value')
  title('Mass')
  
- sgtitle('Actual vs Predicted')
+ %sgtitle('Actual vs Predicted')
 
 %----------------------Residuals-------------------------------------------
 residual_T1 = vq_T1 - T_data1;
@@ -208,7 +208,7 @@ hold on
 plot([0 1], [0 0], 'black', 'linewidth', 2)
 ylabel('Normalized Residuals')
 title('Mass')
-sgtitle('Residual plot')
+%sgtitle('Residual plot')
 % -------------------------------------------------------------------------
 
 %------------------- Heat Flows -------------------------------------------
