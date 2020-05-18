@@ -15,11 +15,11 @@ T5 = readtable('small_exp5.txt');
 k = 0.9;
 eps = 0.94;
 D_in =  0.067; 
-H_raw = 0.095;                          % Height of Beaker (m)
-Beaker_vol = 1000 * pi*H_raw*(D_in/2)^2;       % Volume of the Beaker (liter)                         
-D_out = 0.07;                           % Inner Diameter   (m)
+H_raw = 0.095;                                  % Height of Beaker (m)
+Beaker_vol = 1000 * pi*H_raw*(D_in/2)^2;        % Volume of the Beaker (liter)                         
+D_out = 0.07;                                   % Inner Diameter   (m)
 
-m_A01 = T1.m__g_(1)/1000;
+m_A01 = T1.m__g_(1)/1000;                       % Initial Mass                    
 m_A02 = T2.m__g_(1)/1000;
 m_A03 = T3.m__g_(1)/1000;
 m_A04 = T4.m__g_(1)/1000;
@@ -130,31 +130,31 @@ y5(:,2) = y5(:,2).*1000;
 
 
 %--------------------------Residual for R^2--------------------------------
-vq_T1_R = interp1(t_span,y1(:,1) ,T1.t__s_);
+vq_T1_R = interp1(t_span,y1(:,1) ,T1.t__s_); % Interpolated Temperature
 vq_T2_R = interp1(t_span,y2(:,1) ,T1.t__s_);
 vq_T3_R = interp1(t_span,y3(:,1) ,T1.t__s_);
 vq_T4_R = interp1(t_span,y4(:,1) ,T1.t__s_);
 vq_T5_R = interp1(t_span,y5(:,1) ,T1.t__s_);
 
-vq_m1_R = interp1(t_span, y1(:,2), T1.t__s_);
+vq_m1_R = interp1(t_span, y1(:,2), T1.t__s_); % Interpolated Mass
 vq_m2_R = interp1(t_span, y2(:,2), T1.t__s_);
 vq_m3_R = interp1(t_span, y3(:,2), T1.t__s_);
 vq_m4_R = interp1(t_span, y4(:,2), T1.t__s_);
 vq_m5_R = interp1(t_span, y5(:,2), T1.t__s_);
 
-res_T1 = vq_T1_R - T1.T__C_;
+res_T1 = vq_T1_R - T1.T__C_; % Residual Temp
 res_T2 = vq_T2_R - T2.T__C_;
 res_T3 = vq_T3_R - T3.T__C_;
 res_T4 = vq_T4_R - T4.T__C_;
 res_T5 = vq_T1_R - T5.T__C_;
 
-res_m1 = vq_m1_R - T1.m__g_;
+res_m1 = vq_m1_R - T1.m__g_; % Residual Mass
 res_m2 = vq_m2_R - T2.m__g_;
 res_m3 = vq_m3_R - T3.m__g_;
 res_m4 = vq_m4_R - T4.m__g_;
 res_m5 = vq_m5_R - T5.m__g_;
 
-
+% R-squared values
 Rsq_T1 = 1 - sum((res_T1).^2)/sum((T1.T__C_ - mean(T1.T__C_)).^2);
 Rsq_T2 = 1 - sum((res_T2).^2)/sum((T2.T__C_ - mean(T2.T__C_)).^2);
 Rsq_T3 = 1 - sum((res_T3).^2)/sum((T3.T__C_ - mean(T3.T__C_)).^2);
@@ -176,14 +176,13 @@ Rsq_m5 = 1 - sum((res_m5).^2)/sum((T5.m__g_ - mean(T5.m__g_)).^2);
  xlabel('Time (s)', 'Interpreter', 'latex')
  title('Temperature', 'Interpreter', 'latex')
  
-str1 = sprintf('Small Experiment 1  R^2=%f',Rsq_T1);
-str2 = sprintf('Small Experiment 2  R^2=%f',Rsq_T2);
-str3 = sprintf('Small Experiment 3  R^2=%f',Rsq_T3);
-str4 = sprintf('Small Experiment 4  R^2=%f',Rsq_T4);
-str5 = sprintf('Small Experiment 5  R^2=%f',Rsq_T5);
+str1 = sprintf('Small Experiment 1  R^2=%.*f', 3,Rsq_T1);
+str2 = sprintf('Small Experiment 2  R^2=%.*f', 3,Rsq_T2);
+str3 = sprintf('Small Experiment 3  R^2=%.*f', 3,Rsq_T3);
+str4 = sprintf('Small Experiment 4  R^2=%.*f', 3,Rsq_T4);
+str5 = sprintf('Small Experiment 5  R^2=%.*f', 3,Rsq_T5);
 legend({str1, str2, str3, str4, str5});
 
- 
  
  figure(2)
  plot(t1, y1(:,2), t2, y2(:,2), t3, y3(:,2), t4, y4(:,2), t5, y5(:,2))
@@ -193,22 +192,22 @@ legend({str1, str2, str3, str4, str5});
  xlabel('Time (s)', 'Interpreter', 'latex')
  title('Mass', 'Interpreter', 'latex')
  
-str1 = sprintf('Small Experiment 1  R^2=%f',Rsq_m1);
-str2 = sprintf('Small Experiment 2  R^2=%f',Rsq_m2);
-str3 = sprintf('Small Experiment 3  R^2=%f',Rsq_m3);
-str4 = sprintf('Small Experiment 4  R^2=%f',Rsq_m4);
-str5 = sprintf('Small Experiment 5  R^2=%f',Rsq_m5);
+str1 = sprintf('Small Experiment 1  R^2=%.*f', 3,Rsq_m1);
+str2 = sprintf('Small Experiment 2  R^2=%.*f', 3,Rsq_m2);
+str3 = sprintf('Small Experiment 3  R^2=%.*f', 3,Rsq_m3);
+str4 = sprintf('Small Experiment 4  R^2=%.*f', 3,Rsq_m4);
+str5 = sprintf('Small Experiment 5  R^2=%.*f', 3,Rsq_m5);
 legend({str1, str2, str3, str4, str5});
 %------------------------------------------------------------------------
 
  % -------------------------Residual Plot----------------------------------
-vq_T1 = interp1(t_span,T_norm1 ,T1.t__s_);
+vq_T1 = interp1(t_span,T_norm1 ,T1.t__s_); % Interpolated normalized Temp
 vq_T2 = interp1(t_span,T_norm2 ,T1.t__s_);
 vq_T3 = interp1(t_span,T_norm3 ,T1.t__s_);
 vq_T4 = interp1(t_span,T_norm4 ,T1.t__s_);
 vq_T5 = interp1(t_span,T_norm5 ,T1.t__s_);
 
-vq_m1 = interp1(t_span, m_norm1, T1.t__s_);
+vq_m1 = interp1(t_span, m_norm1, T1.t__s_); % interpolated normalized Mass
 vq_m2 = interp1(t_span, m_norm2, T1.t__s_);
 vq_m3 = interp1(t_span, m_norm3, T1.t__s_);
 vq_m4 = interp1(t_span, m_norm4, T1.t__s_);
@@ -230,9 +229,6 @@ figure(3)
  xlabel('Predicted Normalized Value')
  ylabel('Actual Normalized Value')
  title('Mass')
- 
- %sgtitle('Actual vs Predicted')
-
 %----------------------Residuals-------------------------------------------
 residual_T1 = vq_T1 - T_data1;
 residual_T2 = vq_T2 - T_data2;
@@ -261,8 +257,6 @@ hold on
 plot(vq_m1, residual_m1, 'r', vq_m2, residual_m2, 'b', vq_m3, residual_m3, 'g', vq_m4, residual_m4, 'm', vq_m5, residual_m5, 'c')
 plot([0 1], [0 0], 'black', 'linewidth', 2)
 ylabel('Normalized Residuals')
-title('Mass')
-%sgtitle('Residual plot')
 % -------------------------------------------------------------------------
 
 %------------------- Heat Flows Total -------------------------------------------
@@ -301,13 +295,10 @@ RADp_q_rad_radiation = q_rad_radiation4./q_convection_rad_in1;
 
 
 %convection heat loss
-
 p_conv = p_q_convection_top_out + p_q_convection_rad_out;
 p_rad = p_q_top_radiation + p_q_rad_radiation;
 
 t_fusk = linspace(0,1800,85);
-%t_fusk = linspace(0,1800,425);
-
 T_fusk = interp1(t_span, y1(:,1), t_fusk);
 
 figure(5)
@@ -317,32 +308,33 @@ hold on
 plot(T_fusk, p_rad(1:85))
 hold on
 plot(T_fusk, p_q_vap(1:85))
-legend({'Convection', 'Radiation', 'Evaporation'},'Location','NorthWest')
-title('Total percentage of different heat Loss Mechanisms')
+legend({'Convection', 'Radiation', 'Evaporation'},'Location','East')
+title('Different mechanisms')
 xlabel('Temperature ($^{\circ} C$)', 'Interpreter', 'latex')
-p_tot1=p_conv(1:85)+p_rad(1:85)+p_q_vap(1:85); %1
+axis([47 80 0 1])
 
 subplot(2,2,2);
 plot(T_fusk, p_q_convection_top_in(1:85))
 hold on
 plot(T_fusk, p_q_convection_rad_in(1:85))
 hold on
-legend({'Top', 'rad'},'Location','NorthWest')
-title('Top vs Rad')
+legend({'Top', 'Radial'},'Location','East')
+title('Different geometry')
+axis([47 80 0 1])
 xlabel('Temperature ($^{\circ} C$)', 'Interpreter', 'latex')
-p_tot2=p_q_convection_top_in(1:85)+p_q_convection_rad_in(1:85); %1
 
 subplot(2,2,3);
+plot(T_fusk, TOP_p_q_convection_top_out(1:85))
+hold on
 plot(T_fusk, TOP_p_q_top_radiation(1:85))
 hold on
 plot(T_fusk,TOP_p_q_vap(1:85))
+
 hold on
-plot(T_fusk, TOP_p_q_convection_top_out(1:85))
-hold on
-legend({'Radiation', 'Evaporation', 'Convection'},'Location','NorthWest')
-title('Top')
+legend({'Convection', 'Radiation', 'Evaporation'},'Location','NorthWest')
+title('Top outside')
+axis([47 80 0 1])
 xlabel('Temperature ($^{\circ} C$)', 'Interpreter', 'latex')
-p_tot3 = TOP_p_q_top_radiation+TOP_p_q_vap+TOP_p_q_convection_top_out; %1
 
 subplot(2,2,4);
 plot(T_fusk, RADq_convection_rad_out(1:85))
@@ -350,23 +342,6 @@ hold on
 plot(T_fusk,RADp_q_rad_radiation(1:85))
 hold on
 legend({'Convection', 'Radiation'},'Location','NorthWest')
-title('Rad')
+title('Radial outside')
+axis([47 80 0 1])
 xlabel('Temperature ($^{\circ} C$)', 'Interpreter', 'latex')
-p_tot4 = RADq_convection_rad_out(1:85)+RADp_q_rad_radiation(1:85); %1 
-
-% figure(7)
-% plot(t_fusk, q_convection_rad_in1)
-% hold on
-% plot(t_fusk, q_conduction2)
-% hold on
-% plot(t_fusk, q_convection_rad_out3)
-% hold on
-% plot(t_fusk, q_rad_radiation4)
-% hold on
-% plot(t_fusk, q_top_radiation5)
-% hold on
-% plot(t_fusk, q_convection_top_out6)
-% hold on
-% plot(t_fusk, q_vap7)
-% hold on
-% plot(t_fusk, q_convection_top_in8)

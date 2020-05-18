@@ -1,4 +1,3 @@
-%% Project in KAA052
 clear
 clf
 
