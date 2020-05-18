@@ -12,9 +12,11 @@ T3 = readtable('small_exp3.txt');
 T4 = readtable('small_exp4.txt');
 T5 = readtable('small_exp5.txt');
 
+k = 0.9;
+eps = 0.94;
 D_in =  0.067; 
 H_raw = 0.095;                          % Height of Beaker (m)
-Beaker_vol = pi*H_raw*(D_in/2)^2;       % Volume of the Beaker (liter)                         
+Beaker_vol = 1000 * pi*H_raw*(D_in/2)^2;       % Volume of the Beaker (liter)                         
 D_out = 0.07;                           % Inner Diameter   (m)
 
 m_A01 = T1.m__g_(1)/1000;
@@ -44,30 +46,30 @@ y05 = [353.15 m_A05];
  t_span = linspace(0,1800,1800);
  
  % Beaker 1
- odefunc = @(t, y)sys_ODE_full(t, y, D_in, D_out, H1);                                                                                                                       
+ odefunc = @(t, y)sys_ODE_full(t, y, D_in, D_out, H1, k, eps);                                                                                                                       
      
     [t1, y1] = ode45(odefunc, t_span, y01);  
  
  % Beaker 2
- odefunc = @(t, y)sys_ODE_full(t, y, D_in, D_out, H2);                                                                                                                       
+ odefunc = @(t, y)sys_ODE_full(t, y, D_in, D_out, H2,k, eps);                                                                                                                       
      
     [t2, y2] = ode45(odefunc, t_span, y02);
     
  % Beaker 3
  
- odefunc = @(t, y)sys_ODE_full(t, y, D_in, D_out, H3);                                                                                                                       
+ odefunc = @(t, y)sys_ODE_full(t, y, D_in, D_out, H3, k, eps);                                                                                                                       
      
     [t3, y3] = ode45(odefunc, t_span, y03);
     
  % Beaker 4
  
- odefunc = @(t, y)sys_ODE_full(t, y, D_in, D_out, H4);                                                                                                                       
+ odefunc = @(t, y)sys_ODE_full(t, y, D_in, D_out, H4, k, eps);                                                                                                                       
      
     [t4, y4] = ode45(odefunc, t_span, y04);
     
  % Beaker 5
  
- odefunc = @(t, y)sys_ODE_full(t, y, D_in, D_out, H5);                                                                                                                       
+ odefunc = @(t, y)sys_ODE_full(t, y, D_in, D_out, H5, k, eps);                                                                                                                       
      
     [t5, y5] = ode45(odefunc, t_span, y05);
  
@@ -296,7 +298,7 @@ RADp_q_rad_radiation = q_rad_radiation4./q_convection_rad_in1;
 
 % ---------------------------Heat flows rad--------------------------------
 
-p_q_vap + p_q_convection_top_out + p_q_top_radiation + p_q_rad_radiation + p_q_convection_rad_out;
+
 
 %convection heat loss
 

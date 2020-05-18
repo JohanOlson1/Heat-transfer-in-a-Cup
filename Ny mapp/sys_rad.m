@@ -1,9 +1,9 @@
-function F = sys_rad(T, T_A, D_out, D_in, H)
+function F = sys_rad(T, T_A, D_out, D_in, H, k, eps)
     T_r_inner = T(1);
     T_r_outer = T(2);
     
-    k = 0.9; d = (D_out - D_in)/2; r_o = D_out/2; r_in = D_in/2; A_inner = 2 * r_in * pi * H; A_outer = 2 * r_o * pi * H;
-    T_O = 293.15; eps = 0.94; boltz = 5.67e-8;
+    d = (D_out - D_in)/2; r_o = D_out/2; r_in = D_in/2; A_inner = 2 * r_in * pi * H; A_outer = 2 * r_o * pi * H;
+    T_O = 293.15; boltz = 5.67e-8;
     
     % Heat Flows
     q_convection_rad_in = - h_r_inside2(T_r_inner, T_A, H) * A_inner * (T_A - T_r_inner);

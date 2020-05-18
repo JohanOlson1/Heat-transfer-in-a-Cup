@@ -1,6 +1,6 @@
-function F = sys_top_modified(T_top, T_A, D_in)
+function F = sys_top_modified(T_top, T_A, D_in, eps)
     
-    A_top = pi * (D_in/2)^2; eps = 0.94; boltz =  5.67e-8; T_O = 293.15;
+    A_top = pi * (D_in/2)^2; boltz =  5.67e-8; T_O = 293.15;
     
     % For the mass Difference!
     % 100 % relativ fuktighet 0.017274 kg/m^3

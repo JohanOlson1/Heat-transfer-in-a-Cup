@@ -1,8 +1,8 @@
-function [y] = sys_ODE_full(t, y, D_in, D_out, H)
+function [y] = sys_ODE_full(t, y, D_in, D_out, H, k, eps)
         % Constants
     r_in = D_in/2; A_inner = 2 * r_in * pi * H; A_top = pi * (D_in/2)^2;  
-    k = 0.9; d = (D_out - D_in)/2; r_o = D_out/2; A_outer = 2 * r_o * pi * H;
-    T_O = 293.15; eps = 0.94; boltz = 5.67e-8;
+    d = (D_out - D_in)/2; r_o = D_out/2; A_outer = 2 * r_o * pi * H;
+    T_O = 293.15; boltz = 5.67e-8;
     
         T_A = y(1);
         m_A = y(2);
@@ -10,11 +10,11 @@ function [y] = sys_ODE_full(t, y, D_in, D_out, H)
     % Get the surface Temperatures
     T_0_rad = [300, 300]; T_0_top = 300;                                    % Inital guesses for surfaces, no need to change!
     
-    fun1 = @(T)sys_rad(T, T_A, D_out, D_in, H);                            % Function for solving the radial surface temp.
+    fun1 = @(T)sys_rad(T, T_A, D_out, D_in, H, k, eps);                            % Function for solving the radial surface temp.
     T_surface_rad = fsolve(fun1, T_0_rad);                                  % Solution of surface temp.
  
      
-    fun2 = @(T)sys_top_modified(T, T_A, D_in);                              % Function for solving the top surface temp.
+    fun2 = @(T)sys_top_modified(T, T_A, D_in, eps);                              % Function for solving the top surface temp.
     T_surface_top = fsolve(fun2, T_0_top);                                  % Solution of surface temp.    
     
     T_top = T_surface_top;
