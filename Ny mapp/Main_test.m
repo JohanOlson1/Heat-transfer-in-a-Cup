@@ -12,10 +12,10 @@ T3 = readtable('small_exp3.txt');
 T4 = readtable('small_exp4.txt');
 T5 = readtable('small_exp5.txt');
 
-Beaker_vol = 0.250;                     % Volume of the Beaker (liter)                         
-D_out = 0.07;                           % Inner Diameter   (m)
-D_in =  0.067;                          % Outer Diameter   (m)
+D_in =  0.067; 
 H_raw = 0.095;                          % Height of Beaker (m)
+Beaker_vol = pi*H_raw*(D_in/2)^2;       % Volume of the Beaker (liter)                         
+D_out = 0.07;                           % Inner Diameter   (m)
 
 m_A01 = T1.m__g_(1)/1000;
 m_A02 = T2.m__g_(1)/1000;
