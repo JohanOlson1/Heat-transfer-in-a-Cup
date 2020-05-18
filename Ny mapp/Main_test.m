@@ -23,11 +23,11 @@ m_A03 = T3.m__g_(1)/1000;
 m_A04 = T4.m__g_(1)/1000;
 m_A05 = T5.m__g_(1)/1000;
 
-H1 = (m_A01 / Beaker_vol) * H_raw;        % Height of water  (m)
-H2 = (m_A02 / Beaker_vol) * H_raw;
-H3 = (m_A03 / Beaker_vol) * H_raw;
-H4 = (m_A04 / Beaker_vol) * H_raw;
-H5 = (m_A05 / Beaker_vol) * H_raw;
+H1 = (m_A01*0.972 / Beaker_vol) * H_raw;        % Height of water  (m)
+H2 = (m_A02*0.972 / Beaker_vol) * H_raw;
+H3 = (m_A03*0.972 / Beaker_vol) * H_raw;
+H4 = (m_A04*0.972 / Beaker_vol) * H_raw;
+H5 = (m_A05*0.972 / Beaker_vol) * H_raw;
 % -------------------------------------------------------------------------
 
 
@@ -263,7 +263,7 @@ title('Mass')
 %sgtitle('Residual plot')
 % -------------------------------------------------------------------------
 
-%------------------- Heat Flows -------------------------------------------
+%------------------- Heat Flows Total -------------------------------------------
 
 q_tot = q_convection_rad_in1 + q_convection_top_in8;
 
@@ -284,9 +284,17 @@ p_q_vap = q_vap7./q_tot;
 
 p_q_convection_top_in = q_convection_top_in8./q_tot;
 
+% ---------------------------Heat flows top--------------------------------
+TOP_p_q_top_radiation = q_top_radiation5./q_convection_top_in8;
+TOP_p_q_vap = q_vap7./q_convection_top_in8;
+TOP_p_q_convection_top_out = q_convection_top_out6./q_convection_top_in8
+
 % -------------------------------------------------------------------------
+RADq_convection_rad_out = q_convection_rad_out3./q_convection_rad_in1;
+RADp_q_rad_radiation = q_rad_radiation4./q_convection_rad_in1;
 
 
+% ---------------------------Heat flows rad--------------------------------
 
 p_q_vap + p_q_convection_top_out + p_q_top_radiation + p_q_rad_radiation + p_q_convection_rad_out;
 
@@ -300,17 +308,49 @@ t_fusk = linspace(0,1800,85);
 
 T_fusk = interp1(t_span, y1(:,1), t_fusk);
 
-
 figure(5)
+subplot(2,2,1);
 plot(T_fusk, p_conv(1:85))
 hold on
 plot(T_fusk, p_rad(1:85))
 hold on
 plot(T_fusk, p_q_vap(1:85))
 legend({'Convection', 'Radiation', 'Evaporation'},'Location','NorthWest')
-title('Percentage of different heat Loss Mechanisms')
+title('Total percentage of different heat Loss Mechanisms')
 xlabel('Temperature ($^{\circ} C$)', 'Interpreter', 'latex')
+p_tot1=p_conv(1:85)+p_rad(1:85)+p_q_vap(1:85); %1
 
+subplot(2,2,2);
+plot(T_fusk, p_q_convection_top_in(1:85))
+hold on
+plot(T_fusk, p_q_convection_rad_in(1:85))
+hold on
+legend({'Top', 'rad'},'Location','NorthWest')
+title('Top vs Rad')
+xlabel('Temperature ($^{\circ} C$)', 'Interpreter', 'latex')
+p_tot2=p_q_convection_top_in(1:85)+p_q_convection_rad_in(1:85); %1
+
+subplot(2,2,3);
+plot(T_fusk, TOP_p_q_top_radiation(1:85))
+hold on
+plot(T_fusk,TOP_p_q_vap(1:85))
+hold on
+plot(T_fusk, TOP_p_q_convection_top_out(1:85))
+hold on
+legend({'Radiation', 'Evaporation', 'Convection'},'Location','NorthWest')
+title('Top')
+xlabel('Temperature ($^{\circ} C$)', 'Interpreter', 'latex')
+p_tot3 = TOP_p_q_top_radiation+TOP_p_q_vap+TOP_p_q_convection_top_out; %1
+
+subplot(2,2,4);
+plot(T_fusk, RADq_convection_rad_out(1:85))
+hold on
+plot(T_fusk,RADp_q_rad_radiation(1:85))
+hold on
+legend({'Convection', 'Radiation'},'Location','NorthWest')
+title('Rad')
+xlabel('Temperature ($^{\circ} C$)', 'Interpreter', 'latex')
+p_tot4 = RADq_convection_rad_out(1:85)+RADp_q_rad_radiation(1:85); %1 
 
 % figure(7)
 % plot(t_fusk, q_convection_rad_in1)
