@@ -244,19 +244,20 @@ residual_m5 = vq_m5 - m_data5;
 
 figure(4)
 subplot(2,1,1);
-plot(vq_T1, residual_T1, 'ro', vq_T2, residual_T2, 'bo', vq_T3, residual_T3, 'go', vq_T4, residual_T4, 'mo', vq_T5, residual_T5, 'co')
+plot(T1.t__s_, residual_T1, 'ro', T1.t__s_, residual_T2, 'bo', T1.t__s_, residual_T3, 'go', T1.t__s_, residual_T4, 'mo', T1.t__s_, residual_T5, 'co')
 hold on
-plot(vq_T1, residual_T1, 'r', vq_T2, residual_T2, 'b', vq_T3, residual_T3, 'g', vq_T4, residual_T4, 'm', vq_T5, residual_T5, 'c')
-plot([0 1], [0 0], 'black', 'linewidth', 2)
+plot(T1.t__s_, residual_T1, 'r', T1.t__s_, residual_T2, 'b', T1.t__s_, residual_T3, 'g', T1.t__s_, residual_T4, 'm', T1.t__s_, residual_T5, 'c')
+plot([0 1800], [0 0], 'black', 'linewidth', 2)
 ylabel('Normalized Residuals')
 title('Temperature')
 
 subplot(2,1,2);
-plot(vq_m1, residual_m1, 'ro', vq_m2, residual_m2, 'bo', vq_m3, residual_m3, 'go', vq_m4, residual_m4, 'mo', vq_m5, residual_m5, 'co')
+plot(T1.t__s_, residual_m1, 'ro', T1.t__s_, residual_m2, 'bo', T1.t__s_, residual_m3, 'go', T1.t__s_, residual_m4, 'mo', T1.t__s_, residual_m5, 'co')
 hold on
-plot(vq_m1, residual_m1, 'r', vq_m2, residual_m2, 'b', vq_m3, residual_m3, 'g', vq_m4, residual_m4, 'm', vq_m5, residual_m5, 'c')
-plot([0 1], [0 0], 'black', 'linewidth', 2)
+plot(T1.t__s_, residual_m1, 'r', T1.t__s_, residual_m2, 'b', T1.t__s_, residual_m3, 'g', T1.t__s_, residual_m4, 'm', T1.t__s_, residual_m5, 'c')
+plot([0 1800], [0 0], 'black', 'linewidth', 2)
 ylabel('Normalized Residuals')
+xlabel('Time(s)')
 % -------------------------------------------------------------------------
 
 %------------------- Heat Flows Total -------------------------------------------
