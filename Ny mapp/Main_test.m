@@ -83,32 +83,6 @@ y05 = [353.15 m_A05];
  q_convection_top_in8=q_convection_top_in8(2:end);
 % -------------------------------------------------------------------------
 
-%---------------------------Normalize--------------------------------------
-T_norm1 = (y1(:,1) - min(y1(:,1)))/(max(y1(:,1))-min(y1(:,1)));
-T_norm2 = (y2(:,1) - min(y2(:,1)))/(max(y2(:,1))-min(y2(:,1)));
-T_norm3 = (y3(:,1) - min(y3(:,1)))/(max(y3(:,1))-min(y3(:,1)));
-T_norm4 = (y4(:,1) - min(y4(:,1)))/(max(y4(:,1))-min(y4(:,1)));
-T_norm5 = (y5(:,1) - min(y5(:,1)))/(max(y5(:,1))-min(y5(:,1)));
-
-m_norm1 = (y1(:,2) - min(y1(:,2)))/(max(y1(:,2))-min(y1(:,2)));
-m_norm2 = (y2(:,2) - min(y2(:,2)))/(max(y2(:,2))-min(y2(:,2)));
-m_norm3 = (y3(:,2) - min(y3(:,2)))/(max(y3(:,2))-min(y3(:,2)));
-m_norm4 = (y4(:,2) - min(y4(:,2)))/(max(y4(:,2))-min(y4(:,2)));
-m_norm5 = (y5(:,2) - min(y5(:,2)))/(max(y5(:,2))-min(y5(:,2)));
-
-T_data1 = (T1.T__C_ - min(T1.T__C_))/(max(T1.T__C_)-min(T1.T__C_));
-T_data2 = (T2.T__C_ - min(T2.T__C_))/(max(T2.T__C_)-min(T2.T__C_));
-T_data3 = (T3.T__C_ - min(T3.T__C_))/(max(T3.T__C_)-min(T3.T__C_));
-T_data4 = (T4.T__C_ - min(T4.T__C_))/(max(T4.T__C_)-min(T4.T__C_));
-T_data5 = (T5.T__C_ - min(T5.T__C_))/(max(T5.T__C_)-min(T5.T__C_));
-
-m_data1 = (T1.m__g_ - min(T1.m__g_))/(max(T1.m__g_)-min(T1.m__g_));
-m_data2 = (T2.m__g_ - min(T2.m__g_))/(max(T2.m__g_)-min(T2.m__g_));
-m_data3 = (T3.m__g_ - min(T3.m__g_))/(max(T3.m__g_)-min(T3.m__g_));
-m_data4 = (T4.m__g_ - min(T4.m__g_))/(max(T4.m__g_)-min(T4.m__g_));
-m_data5 = (T5.m__g_ - min(T5.m__g_))/(max(T5.m__g_)-min(T5.m__g_));
-%--------------------------------------------------------------------------
-
 
 % --------------------------Adjust Data------------------------------------
 
@@ -128,6 +102,31 @@ y5(:,1) = y5(:,1) - 273.15;
 y5(:,2) = y5(:,2).*1000;
 %--------------------------------------------------------------------------
 
+%---------------------------Normalize--------------------------------------
+T_norm1 = (y1(:,1) - min(T1.T__C_))/(max(T1.T__C_)-min(T1.T__C_));
+T_norm2 = (y2(:,1) - min(T2.T__C_))/(max(T2.T__C_)-min(T2.T__C_));
+T_norm3 = (y3(:,1) - min(T3.T__C_))/(max(T3.T__C_)-min(T3.T__C_));
+T_norm4 = (y4(:,1) - min(T4.T__C_))/(max(T4.T__C_)-min(T4.T__C_));
+T_norm5 = (y5(:,1) - min(T5.T__C_))/(max(T5.T__C_)-min(T5.T__C_));
+
+m_norm1 = (y1(:,2) - min(T1.m__g_))/(max(T1.m__g_)-min(T1.m__g_));
+m_norm2 = (y2(:,2) - min(T2.m__g_))/(max(T2.m__g_)-min(T2.m__g_));
+m_norm3 = (y3(:,2) - min(T3.m__g_))/(max(T3.m__g_)-min(T3.m__g_));
+m_norm4 = (y4(:,2) - min(T4.m__g_))/(max(T4.m__g_)-min(T4.m__g_));
+m_norm5 = (y5(:,2) - min(T5.m__g_))/(max(T5.m__g_)-min(T5.m__g_));
+
+T_data1 = (T1.T__C_ - min(T1.T__C_))/(max(T1.T__C_)-min(T1.T__C_));
+T_data2 = (T2.T__C_ - min(T2.T__C_))/(max(T2.T__C_)-min(T2.T__C_));
+T_data3 = (T3.T__C_ - min(T3.T__C_))/(max(T3.T__C_)-min(T3.T__C_));
+T_data4 = (T4.T__C_ - min(T4.T__C_))/(max(T4.T__C_)-min(T4.T__C_));
+T_data5 = (T5.T__C_ - min(T5.T__C_))/(max(T5.T__C_)-min(T5.T__C_));
+
+m_data1 = (T1.m__g_ - min(T1.m__g_))/(max(T1.m__g_)-min(T1.m__g_));
+m_data2 = (T2.m__g_ - min(T2.m__g_))/(max(T2.m__g_)-min(T2.m__g_));
+m_data3 = (T3.m__g_ - min(T3.m__g_))/(max(T3.m__g_)-min(T3.m__g_));
+m_data4 = (T4.m__g_ - min(T4.m__g_))/(max(T4.m__g_)-min(T4.m__g_));
+m_data5 = (T5.m__g_ - min(T5.m__g_))/(max(T5.m__g_)-min(T5.m__g_));
+%--------------------------------------------------------------------------
 
 %--------------------------Residual for R^2--------------------------------
 vq_T1_R = interp1(t_span,y1(:,1) ,T1.t__s_); % Interpolated Temperature
@@ -258,6 +257,7 @@ plot(T1.t__s_, residual_m1, 'r', T1.t__s_, residual_m2, 'b', T1.t__s_, residual_
 plot([0 1800], [0 0], 'black', 'linewidth', 2)
 ylabel('Normalized Residuals')
 xlabel('Time(s)')
+title('Mass')
 % -------------------------------------------------------------------------
 
 %------------------- Heat Flows Total -------------------------------------------
