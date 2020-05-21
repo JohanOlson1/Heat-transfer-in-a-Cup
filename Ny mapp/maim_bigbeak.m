@@ -175,7 +175,7 @@ residual_m3 = vq_m3 - m_data3;
 
 figure(4)
 subplot(2,1,1);
-plot(vq_T1, residual_T1, 'ro', vq_T2, residual_T2, 'bo', vq_T3, residual_T3, 'go')
+plot(T1.t__s_, residual_T1, 'ro', T1.t__s_, residual_T2, 'bo', T1.t__s_, residual_T3, 'go')
 hold on
 plot(vq_T1, residual_T1, 'r', vq_T2, residual_T2, 'b', vq_T3, residual_T3, 'g')
 plot([0 1], [0 0], 'black', 'linewidth', 2)
@@ -183,11 +183,12 @@ ylabel('Normalized Residuals')
 title('Temperature')
 
 subplot(2,1,2);
-plot(vq_m1, residual_m1, 'ro', vq_m2, residual_m2, 'bo', vq_m3, residual_m3, 'go')
+plot(T1.t__s_, residual_m1, 'ro', T1.t__s_, residual_m2, 'bo', T1.t__s_, residual_m3, 'go')
 hold on
-plot(vq_m1, residual_m1, 'r', vq_m2, residual_m2, 'b', vq_m3, residual_m3, 'g')
+plot(T1.t__s_, residual_m1, 'r', T1.t__s_, residual_m2, 'b', T1.t__s_, residual_m3, 'g')
 plot([0 1], [0 0], 'black', 'linewidth', 2)
 ylabel('Normalized Residuals')
+xlabel('Time (s)')
 title('Mass')
 %sgtitle('Residual plot')
 % -------------------------------------------------------------------------
