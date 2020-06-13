@@ -31,7 +31,8 @@ function [y] = sys_ODE_full(t, y, D_in, D_out, H, k, eps)
     % 50 % rel fukt 0.00864 g/m^3
     
     % Mass Flux
-    kc = h_top_outside(T_top, D_in) * (2.9e-6) * (T_top) / (rho_air((T_A + T_top)/2)^(1/3) * cp_air((T_A + T_top)/2)^(1/3) * k_air((T_A + T_top)/2)^(2/3));
+    D_AB = ((2.9e-6) * (T_top))^(3/2);
+    kc = h_top_outside(T_top, D_in) * D_AB^(2/3) / (rho_air((T_A + T_top)/2)^(1/3) * cp_air((T_A + T_top)/2)^(1/3) * k_air((T_A + T_top)/2)^(2/3));
     
     % Heat Flux 
     q_convection_rad_in = - h_r_inside2(T_r_inner, T_A, H) * A_inner * (T_A - T_r_inner);
